@@ -1,0 +1,38 @@
+﻿@model U4_W5_D1_5.Models.SpedizionePrivato
+
+@{
+    ViewBag.Title = "AddSpedizione";
+}
+
+@if (TempData["Errore"] != null)
+{
+    <div class="alert alert-danger w-25 mx-auto text-center m-4">@TempData["Errore"]</div>
+}
+
+@if (TempData["Successo"] != null)
+{
+    <div class="alert alert-success w-25 mx-auto text-center m-4">@TempData["Successo"]</div>
+}
+
+<div class="d-flex min-vh-100">
+    <div class="w-75 p-5 text-center">
+        <div>
+            <a class="btn btn-success rounded-2 fw-bold w-50 py-3 fs-4" href="~/Clienti/AddSpedizionePrivato">Spedizione privati</a>
+        </div>
+        <div class="w-50 mx-auto pt-5">
+            <img src="~/Content/Img/order1.svg" alt="new_customer" class="w-100" />
+        </div>
+    </div>
+    <div class="w-75 p-5 text-center">
+        <div>
+            <a class="btn btn-success rounded-2 fw-bold w-50 py-3 fs-4" href="~/Clienti/AddSpedizioneAzienda">Spedizione aziende</a>
+        </div>
+        <div class="w-75 mx-auto pt-5 mt-5">
+            <img src="~/Content/Img/drone.svg" alt="new_customer" class="w-100" />
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/JavaScriptCustom.js"></script>
+}

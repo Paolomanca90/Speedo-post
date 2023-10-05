@@ -1,0 +1,142 @@
+﻿@using U4_W5_D1_5.Models
+
+@{
+    ViewBag.Title = "GetSpedizioni";
+    List<SpedizioneAzienda> lista1 = ViewBag.ListaAziende as List<SpedizioneAzienda>;
+    List<SpedizionePrivato> lista = ViewBag.ListaPrivati as List<SpedizionePrivato>;
+}
+
+<h2 class="p-4">Gestione Spedizioni</h2>
+
+@if (TempData["Eliminazione"] != null)
+{
+    <div class="alert alert-success w-50 mx-auto text-center m-4">@TempData["Eliminazione"]</div>
+}
+
+@if (TempData["Errore"] != null)
+{
+    <div class="alert alert-danger w-25 mx-auto text-center m-4">@TempData["Errore"]</div>
+}
+
+@if (TempData["Successo"] != null)
+{
+    <div class="alert alert-success w-25 mx-auto text-center m-4">@TempData["Successo"]</div>
+}
+
+<div class="min-vh-100">
+    <div class="accordion mb-3" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button fs-5 fw-semibold text-bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Spedizioni privati
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    @if (lista.Count == 0)
+                    {
+                        <div class="text-center fst-italic p-4 fs-4 text-success">
+                            Nessuna spedizione da mostrare in questa sezione
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-success">
+                            <thead>
+                                <tr>
+                                    <th>Mittente</th>
+                                    <th>Cognome Dest.</th>
+                                    <th>Nome Dest.</th>
+                                    <th>Indirizzo Dest.</th>
+                                    <th>Città Dest.</th>
+                                    <th>Data Spedizione</th>
+                                    <th>Data Consegna</th>
+                                    <th>Numero Parcel</th>
+                                    <th>Dettagli</th>
+                                    <th>Modifica</th>
+                                    <th>Elimina</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (SpedizionePrivato s in lista)
+                                {
+                                    <tr>
+                                        <td>@s.Mittente</td>
+                                        <td>@s.CognomeDestinatario</td>
+                                        <td>@s.NomeDestinatario</td>
+                                        <td>@s.IndirizzoDestinatario</td>
+                                        <td>@s.CittaDestinatario</td>
+                                        <td>@s.DataSpedizione.ToShortDateString()</td>
+                                        <td>@s.dataConsegna.ToShortDateString()</td>
+                                        <td>@s.NumeroParcel</td>
+                                        <td><a href="~/Clienti/Details/@s.NumeroParcel"><i class="fas fa-list"></i></a></td>
+                                        <td><a href="~/Clienti/EditSped/@s.NumeroParcel"><i class="fa-solid fa-wrench"></i></a></td>
+                                        <td><a href="@Url.Action("DeleteSpedPrivato", "Clienti", new { id = s.NumeroParcel })"><i class="fa-solid fa-trash"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion mb-3" id="accordionExample1">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button fs-5 fw-semibold text-bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                    Spedizioni aziende
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample1">
+                <div class="accordion-body">
+                    @if (lista1.Count == 0)
+                    {
+                        <div class="text-center fst-italic p-4 fs-4 text-success">
+                            Nessuna spedizione da mostrare in questa sezione
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-success">
+                            <thead>
+                                <tr>
+                                    <th>Mittente</th>
+                                    <th>Cognome Dest.</th>
+                                    <th>Nome Dest.</th>
+                                    <th>Indirizzo Dest.</th>
+                                    <th>Città Dest.</th>
+                                    <th>Data Spedizione</th>
+                                    <th>Data Consegna</th>
+                                    <th>Numero Parcel</th>
+                                    <th>Dettagli</th>
+                                    <th>Modifica</th>
+                                    <th>Elimina</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (SpedizioneAzienda s in lista1)
+                                {
+                                    <tr>
+                                        <td>@s.Azienda</td>
+                                        <td>@s.CognomeDestinatario</td>
+                                        <td>@s.NomeDestinatario</td>
+                                        <td>@s.IndirizzoDestinatario</td>
+                                        <td>@s.CittaDestinatario</td>
+                                        <td>@s.DataSpedizione.ToShortDateString()</td>
+                                        <td>@s.dataConsegna.ToShortDateString()</td>
+                                        <td>@s.NumeroParcel</td>
+                                        <td><a href="~/Clienti/Details/@s.NumeroParcel"><i class="fas fa-list"></i></a></td>
+                                        <td><a href="~/Clienti/EditSped/@s.NumeroParcel"><i class="fa-solid fa-wrench"></i></a></td>
+                                        <td><a href="@Url.Action("DeleteSpedAzienda", "Clienti", new { id = s.NumeroParcel })"><i class="fa-solid fa-trash"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

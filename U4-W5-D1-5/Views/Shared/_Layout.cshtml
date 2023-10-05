@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @if (User.Identity.Name != "")
+    {
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-success">
+            <div class="container">
+                @Html.ActionLink("SpeedoLogistica", "Index", "Clienti", new { area = "" }, new { @class = "navbar-brand fw-bold fst-italic fs-4" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 fs-4">
+                        @if (User.Identity.Name != "Admin")
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Traccia Spedizione", "Spedizione", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        @if (User.Identity.Name == "Admin")
+                        {
+                            <li>@Html.ActionLink("Nuovo Cliente", "AddCliente", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Nuova Spedizione", "AddSpedizione", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Gestisci Spedizione", "GetSpedizioni", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    }
+
+    <div class="container-fluid body-content py-4 m-0" style="background-color: #Eef8ef ">
+        @RenderBody()
+    </div>
+    <footer class="p-4 text-bg-success fw-bold">
+        <p class="m-0 text-center">&copy; @DateTime.Now.Year - Speedo Logistica</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿@using U4_W5_D1_5.Models
+
+@{
+    ViewBag.Title = "Details";
+    TempData["NumeroParcel"] = ViewContext.RouteData.Values["Id"];
+}
+
+<h2 class="text-success p-4">Spedizione n. @TempData["NumeroParcel"]</h2>
+
+<table class="table table-bordered w-50 me-5">
+    <thead class="text-bg-success">
+        <tr>
+            <th>Data Modifica</th>
+            <th>Ora Modifica</th>
+            <th>Luogo Modifica</th>
+            <th>Stato</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Dettaglio s in Model)
+        {
+            <tr>
+                <td>@s.DataModifica.ToShortDateString()</td>
+                <td>@s.DataModifica.ToShortTimeString()</td>
+                <td>@s.LuogoModifica</td>
+                <td>@s.StatoModifica</td>
+            </tr>
+        }
+    </tbody>
+</table>
