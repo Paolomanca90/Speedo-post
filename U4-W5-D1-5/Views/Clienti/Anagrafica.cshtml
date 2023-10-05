@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Anagrafica";
+    List<U4_W5_D1_5.Models.Privato> lista = ViewBag.Privati as List<U4_W5_D1_5.Models.Privato>;
+    List<U4_W5_D1_5.Models.Azienda> lista1 = ViewBag.Aziende as List<U4_W5_D1_5.Models.Azienda>;
+}
+
+<h2 class="p-4">Anagrafica Clienti</h2>
+
+@if (TempData["Eliminazione"] != null)
+{
+    <div class="alert alert-success w-50 mx-auto text-center m-4">@TempData["Eliminazione"]</div>
+}
+
+@if (TempData["Salvataggio"] != null)
+{
+    <div class="alert alert-success w-25 mx-auto text-center m-4">@TempData["Salvataggio"]</div>
+}
+
+<div class="min-vh-100">
+    <div class="accordion mb-3" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button fs-5 fw-semibold text-bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Anagrafica privati
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    @if (lista.Count == 0)
+                    {
+                        <div class="text-center fst-italic p-4 fs-4 text-success">
+                            Nessun utente da mostrare in questa sezione
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-success">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Cognome</th>
+                                    <th>Indirizzo</th>
+                                    <th>Città</th>
+                                    <th>CF</th>
+                                    <th>Modifica</th>
+                                    <th>Elimina</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (U4_W5_D1_5.Models.Privato s in lista)
+                                {
+                                    <tr>
+                                        <td>@s.Nome</td>
+                                        <td>@s.Cognome</td>
+                                        <td>@s.Indirizzo</td>
+                                        <td>@s.Citta</td>
+                                        <td>@s.CF</td>
+                                        <td><a href="~/Clienti/EditPrivato/@s.IdCliente"><i class="fa-solid fa-wrench"></i></a></td>
+                                        <td><a href="@Url.Action("DeletePrivato", "Clienti", new { id = s.IdCliente })"><i class="fa-solid fa-trash"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion mb-3" id="accordionExample1">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button fs-5 fw-semibold text-bg-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                    Anagrafica aziende
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample1">
+                <div class="accordion-body">
+                    @if (lista1.Count == 0)
+                    {
+                        <div class="text-center fst-italic p-4 fs-4 text-success">
+                            Nessun utente da mostrare in questa sezione
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-success">
+                            <thead>
+                                <tr>
+                                    <th>Ragione Sociale</th>
+                                    <th>Partita Iva</th>
+                                    <th>Sede</th>
+                                    <th>Città</th>
+                                    <th>Modifica</th>
+                                    <th>Elimina</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (U4_W5_D1_5.Models.Azienda s in lista1)
+                                {
+                                    <tr>
+                                        <td>@s.RagioneSociale</td>
+                                        <td>@s.PartitaIva</td>
+                                        <td>@s.Sede</td>
+                                        <td>@s.Citta</td>
+                                        <td><a href="~/Clienti/EditAzienda/@s.IdAzienda"><i class="fa-solid fa-wrench"></i></a></td>
+                                        <td><a href="@Url.Action("DeleteAzienda", "Clienti", new { id = s.IdAzienda })"><i class="fa-solid fa-trash"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

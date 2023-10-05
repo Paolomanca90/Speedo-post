@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using U4_W5_D1_5.Models;
 
 namespace U4_W5_D1_5.Controllers
@@ -91,8 +93,6 @@ namespace U4_W5_D1_5.Controllers
 
         public ActionResult AddSpedizione()
         {
-            ViewBag.AnagraficaPrivati = AnagraficaPrivato;
-            ViewBag.AnagraficaAziende = AnagraficaAziende;
             return View();
         }
 
@@ -172,16 +172,122 @@ namespace U4_W5_D1_5.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditSped(Dettaglio d, ViewContext view)
+        public ActionResult EditSped(Dettaglio d)
         {
-            if (ModelState.IsValid)
+            try
             {
-                DB.EditSped(d, view);
-                TempData["Successo"] = "Spedizione aggiornata con successo";
+                if (ModelState.IsValid)
+                {
+                    DB.EditSped(d);
+                    TempData["Successo"] = "Spedizione aggiornata con successo";
+                    return RedirectToAction("GetSpedizioni");
+                }
+                TempData["Errore"] = "Errore durante la procedura";
                 return RedirectToAction("GetSpedizioni");
             }
-            TempData["Errore"] = "Errore durante la procedura";
-            return RedirectToAction("GetSpedizioni");
+            catch (Exception ex)
+            {
+                string errore = ex.Message;
+                return Redirect("http://google.com");
+            }
+
+        }
+
+        public ActionResult Anagrafica()
+        {
+            List<Privato> lista = new List<Privato>();
+            lista = DB.getPrivati();
+            ViewBag.Privati = lista;
+            List<Azienda> lista1 = new List<Azienda>();
+            lista1 = DB.getAziende();
+            ViewBag.Aziende = lista1;
+            return View();
+        }
+
+        public ActionResult EditPrivato(int id)
+        {
+            List<Privato> lista = new List<Privato>();
+            lista = DB.getPrivati();
+            Privato selected = new Privato();
+            foreach(Privato p in lista)
+            {
+                if(p.IdCliente == id)
+                {
+                    selected = p;
+                    break;
+                }
+            }
+            return View(selected);
+        }
+
+        [HttpPost]
+        public ActionResult EditPrivato(Privato p)
+        {
+            int idC = Convert.ToInt16(TempData["IdCliente"]);
+            List<Privato> lista = new List<Privato>();
+            lista = DB.getPrivati();
+            foreach (Privato privato in lista)
+            {
+                if (privato.IdCliente == idC)
+                {
+                    p.IdCliente = privato.IdCliente;
+                    break;
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                DB.EditPrivato(p);
+                TempData["Salvataggio"] = "Modifica effettuata";
+                return RedirectToAction("Anagrafica");
+            }
+            else
+            {
+                ViewBag.MessaggioErrore = "Modifica non riuscita";
+                return View();
+            }
+        }
+
+        public ActionResult EditAzienda(int id)
+        {
+            List<Azienda> lista = new List<Azienda>();
+            lista = DB.getAziende();
+            Azienda selected = new Azienda();
+            foreach (Azienda p in lista)
+            {
+                if (p.IdAzienda == id)
+                {
+                    selected = p;
+                    break;
+                }
+            }
+            return View(selected);
+        }
+
+        [HttpPost]
+        public ActionResult EditAzienda(Azienda p)
+        {
+            int idC = Convert.ToInt16(TempData["IdAzienda"]);
+            List<Azienda> lista = new List<Azienda>();
+            lista = DB.getAziende();
+            foreach (Azienda azienda in lista)
+            {
+                if (azienda.IdAzienda == idC)
+                {
+                    p.IdAzienda = azienda.IdAzienda;
+                    break;
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                DB.EditAzienda(p);
+                TempData["Salvataggio"] = "Modifica effettuata";
+                return RedirectToAction("Anagrafica");
+            }
+            else
+            {
+                ViewBag.MessaggioErrore = "Modifica non riuscita";
+                return View();
+            }
         }
     }
 }

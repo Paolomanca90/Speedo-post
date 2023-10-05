@@ -7,24 +7,29 @@
 
 <h2 class="text-success p-4">Spedizione n. @TempData["NumeroParcel"]</h2>
 
-<table class="table table-bordered w-50 me-5">
-    <thead class="text-bg-success">
-        <tr>
-            <th>Data Modifica</th>
-            <th>Ora Modifica</th>
-            <th>Luogo Modifica</th>
-            <th>Stato</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Dettaglio s in Model)
-        {
+<div class="d-flex min-vh-100">
+    <table class="table table-bordered w-50 me-5">
+        <thead class="text-bg-success">
             <tr>
-                <td>@s.DataModifica.ToShortDateString()</td>
-                <td>@s.DataModifica.ToShortTimeString()</td>
-                <td>@s.LuogoModifica</td>
-                <td>@s.StatoModifica</td>
+                <th>Data Modifica</th>
+                <th>Ora Modifica</th>
+                <th>Luogo Modifica</th>
+                <th>Stato</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (Dettaglio s in Model)
+            {
+                <tr>
+                    <td>@s.DataModifica.ToShortDateString()</td>
+                    <td>@s.DataModifica.ToShortTimeString()</td>
+                    <td>@s.LuogoModifica</td>
+                    <td>@s.StatoModifica</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="w-50 mx-auto pt-5">
+        <img src="~/Content/Img/tracking.svg" alt="new_customer" class="w-100" />
+    </div>
+</div>

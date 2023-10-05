@@ -3,42 +3,52 @@
 @{
     ViewBag.Title = "EditSped";
     TempData["NumeroParcel"] = ViewContext.RouteData.Values["Id"];
+    List<string> aggiornamenti = new List<string>
+        {
+            "In preparazione",
+            "In transito",
+            "Arrivata al deposito",
+            "In consegna",
+            "Consegnata"
+        };
 }
 
+<h2 class="text-center p-4">Aggiornamento della spedizione n. @TempData["NumeroParcel"]</h2>
 <div class="w-50 mx-auto">
-        @using (Html.BeginForm("EditSped", "Clienti", FormMethod.Post, new { @class = "w-100" }))
-        {
-            @Html.AntiForgeryToken()
+    @using (Html.BeginForm("EditSped", "Clienti", FormMethod.Post, new { data_val = "true" ,@class = "w-100" }))
+    {
+        @Html.AntiForgeryToken()
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="p-4 border border-2 border-success mx-auto rounded-4" style="background: lightgreen">
-                <div class="form-group text-center mb-4">
-                    @Html.LabelFor(model => model.DataModifica, htmlAttributes: new { @class = "control-label d-block pb-2 text-white fw-bold fs-4" })
-                    <div class="d-flex justify-content-center">
-                        @Html.EditorFor(model => model.DataModifica, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-                        @Html.ValidationMessageFor(model => model.DataModifica, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group text-center mb-4">
-                    @Html.LabelFor(model => model.LuogoModifica, htmlAttributes: new { @class = "control-label d-block pb-2 text-white fw-bold fs-4" })
-                    <div class="d-flex justify-content-center">
-                        @Html.EditorFor(model => model.LuogoModifica, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.LuogoModifica, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group text-center mb-4">
-                    @Html.LabelFor(model => model.StatoModifica, htmlAttributes: new { @class = "control-label d-block pb-2 text-white fw-bold fs-4" })
-                    <div class="d-flex justify-content-center">
-                        @Html.EditorFor(model => model.StatoModifica, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.StatoModifica, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="text-center">
-                        <input type="submit" value="Registra" class="btn btn-success w-50 text-white fw-bold fs-4" />
-                    </div>
-                </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="p-4 border border-2 border-success mx-auto rounded-4" style="background: lightgreen">
+        <div class="form-group text-center mb-4">
+            @Html.LabelFor(model => model.DataModifica, htmlAttributes: new { @class = "control-label d-block pb-2 text-white fw-bold fs-4" })
+            <div class="d-flex justify-content-center">
+                @Html.EditorFor(model => model.DataModifica, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.DataModifica, "", new { @class = "text-danger" })
             </div>
-        }
+        </div>
+        <div class="form-group text-center mb-4">
+            @Html.LabelFor(model => model.LuogoModifica, htmlAttributes: new { @class = "control-label d-block pb-2 text-white fw-bold fs-4" })
+            <div class="d-flex justify-content-center">
+                @Html.EditorFor(model => model.LuogoModifica, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LuogoModifica, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group text-center mb-4">
+            @Html.LabelFor(model => model.StatoModifica, htmlAttributes: new { @class = "control-label d-block pb-2 text-white fw-bold fs-4" })
+            <div class="d-flex justify-content-center">
+                @Html.DropDownListFor(model => model.StatoModifica, new SelectList(aggiornamenti), new { @class = "form-control text-center" })
+                @Html.ValidationMessageFor(model => model.StatoModifica, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.Hidden("NumeroParcel", TempData["NumeroParcel"] as string)
+        <div class="form-group">
+            <div class="text-center">
+                <input type="submit" value="Registra" class="btn btn-success w-50 text-white fw-bold fs-4" />
+            </div>
+        </div>
     </div>
+    }
+</div>
 

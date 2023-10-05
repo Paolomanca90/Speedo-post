@@ -8,6 +8,8 @@ namespace U4_W5_D1_5.Models
 {
     public class Privato
     {
+        public int IdCliente { get; set; }
+
         [Required(ErrorMessage = "Campo obbligatorio")]
         public string Nome { get; set; }
 

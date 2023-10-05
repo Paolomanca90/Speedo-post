@@ -158,6 +158,8 @@
     <Content Include="Content\Img\order.svg" />
     <Content Include="Content\Img\order1.svg" />
     <Content Include="Content\Img\tracking.svg" />
+    <Content Include="Content\Img\update.svg" />
+    <Content Include="Content\Img\update1.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -195,12 +197,15 @@
     <Content Include="Views\Clienti\AddCliente.cshtml" />
     <Content Include="Views\Clienti\AddSpedizione.cshtml" />
     <Content Include="Views\Clienti\GetSpedizioni.cshtml" />
-    <Content Include="Views\Clienti\EditSped.cshtml" />
     <Content Include="Views\Clienti\AddPrivato.cshtml" />
     <Content Include="Views\Clienti\AddAzienda.cshtml" />
     <Content Include="Views\Clienti\AddSpedizionePrivato.cshtml" />
     <Content Include="Views\Clienti\AddSpedizioneAzienda.cshtml" />
     <Content Include="Views\Clienti\Details.cshtml" />
+    <Content Include="Views\Clienti\EditSped.cshtml" />
+    <Content Include="Views\Clienti\Anagrafica.cshtml" />
+    <Content Include="Views\Clienti\EditPrivato.cshtml" />
+    <Content Include="Views\Clienti\EditAzienda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

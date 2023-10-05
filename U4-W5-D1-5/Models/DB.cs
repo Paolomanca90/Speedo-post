@@ -141,6 +141,7 @@ namespace U4_W5_D1_5.Models
             while (sqlDataReader.Read())
             {
                 Privato utente = new Privato();
+                utente.IdCliente = Convert.ToInt32(sqlDataReader["IdCliente"]);
                 utente.Nome = sqlDataReader["NomeCliente"].ToString();
                 utente.Cognome = sqlDataReader["CognomeCliente"].ToString();
                 utente.Citta = sqlDataReader["CittaCliente"].ToString();
@@ -163,6 +164,7 @@ namespace U4_W5_D1_5.Models
             while (sqlDataReader.Read())
             {
                 Azienda utente = new Azienda();
+                utente.IdAzienda = Convert.ToInt32(sqlDataReader["IdAzienda"]);
                 utente.RagioneSociale = sqlDataReader["RagioneSociale"].ToString();
                 utente.PartitaIva = Convert.ToInt32(sqlDataReader["PartitaIva"]);
                 utente.Citta = sqlDataReader["CittaAzienda"].ToString();
@@ -244,7 +246,7 @@ namespace U4_W5_D1_5.Models
         public static List<Dettaglio> GetDettagli(string parcel) 
         {
             List<Dettaglio> lista = new List<Dettaglio>();
-            SqlCommand cmd = new SqlCommand("select * from Dettaglio where NumeroParcel = @NumeroParcel", conn);
+            SqlCommand cmd = new SqlCommand("select * from Dettaglio where NumeroParcel = @NumeroParcel ORDER BY DataModifica DESC", conn);
             cmd.Parameters.AddWithValue("NumeroParcel", parcel);
             SqlDataReader sqlDataReader;
             conn.Open();
@@ -263,14 +265,48 @@ namespace U4_W5_D1_5.Models
             return lista;
         }
 
-        public static void EditSped(Dettaglio d, ViewContext view)
+        public static void EditSped(Dettaglio d)
         {
-            SqlCommand cmd = new SqlCommand("Insert INTO Dettagli Values(@DataModifica, @LuogoModifica, @StatoModifica, @NumeroParcel)", conn);
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Insert INTO Dettaglio Values(@DataModifica, @LuogoModifica, @StatoModifica, @NumeroParcel)", conn);
+                conn.Open();
+                cmd.Parameters.AddWithValue("DataModifica", Convert.ToDateTime(d.DataModifica));
+                cmd.Parameters.AddWithValue("LuogoModifica", d.LuogoModifica);
+                cmd.Parameters.AddWithValue("StatoModifica", d.StatoModifica);
+                cmd.Parameters.AddWithValue("NumeroParcel", d.NumeroParcel);
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                string errore = ex.Message;
+            }
+            conn.Close();
+        }
+
+        public static void EditPrivato(Privato p)
+        {
             conn.Open();
-            cmd.Parameters.AddWithValue("DataModifica", Convert.ToDateTime(d.DataModifica));
-            cmd.Parameters.AddWithValue("LuogoModifica", d.LuogoModifica);
-            cmd.Parameters.AddWithValue("StatoModifica", d.StatoModifica);
-            cmd.Parameters.AddWithValue("NumeroParcel", view.RouteData.Values["Id"]);
+            SqlCommand cmd = new SqlCommand("UPDATE Privato SET NomeCliente = @NomeCliente, CognomeCliente = @CognomeCliente, CF = @CF, IndirizzoCliente = @IndirizzoCliente, CittaCliente = @CittaCliente where IdCliente = @IdCliente", conn);
+            cmd.Parameters.AddWithValue("IdCliente", p.IdCliente);
+            cmd.Parameters.AddWithValue("NomeCliente", p.Nome);
+            cmd.Parameters.AddWithValue("CognomeCliente", p.Cognome);
+            cmd.Parameters.AddWithValue("CF", p.CF);
+            cmd.Parameters.AddWithValue("IndirizzoCliente", p.Indirizzo);
+            cmd.Parameters.AddWithValue("CittaCliente", p.Citta);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public static void EditAzienda(Azienda a)
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("UPDATE Azienda SET RagioneSociale = @RagioneSociale, PartitaIva = @PartitaIva, Sede = @Sede, CittaAzienda = @CittaAzienda where IdAzienda = @IdAzienda", conn);
+            cmd.Parameters.AddWithValue("IdAzienda", a.IdAzienda);
+            cmd.Parameters.AddWithValue("RagioneSociale", a.RagioneSociale);
+            cmd.Parameters.AddWithValue("PartitaIva", a.PartitaIva);
+            cmd.Parameters.AddWithValue("Sede", a.Sede);
+            cmd.Parameters.AddWithValue("CittaAzienda", a.Citta);
             cmd.ExecuteNonQuery();
             conn.Close();
         }

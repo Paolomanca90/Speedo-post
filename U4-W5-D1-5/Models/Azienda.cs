@@ -8,6 +8,8 @@ namespace U4_W5_D1_5.Models
 {
     public class Azienda
     {
+        public int IdAzienda { get; set; }
+
         [Display(Name = "Ragione Sociale")]
         [Required(ErrorMessage = "Campo obbligatorio")]
         public string RagioneSociale { get; set; }
