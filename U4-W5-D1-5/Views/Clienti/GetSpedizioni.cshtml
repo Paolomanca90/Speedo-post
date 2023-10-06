@@ -23,6 +23,11 @@
     <div class="alert alert-success w-25 mx-auto text-center m-4">@TempData["Successo"]</div>
 }
 
+@if (TempData["Salvataggio"] != null)
+{
+    <div class="alert alert-success w-25 mx-auto text-center m-4">@TempData["Salvataggio"]</div>
+}
+
 <div class="min-vh-100">
     <div class="accordion mb-3" id="accordionExample">
         <div class="accordion-item">
@@ -53,7 +58,7 @@
                                     <th>Data Consegna</th>
                                     <th>Numero Parcel</th>
                                     <th>Dettagli</th>
-                                    <th>Modifica</th>
+                                    <th>Aggiorna Stato</th>
                                     <th>Elimina</th>
                                 </tr>
                             </thead>
@@ -70,7 +75,7 @@
                                         <td>@s.dataConsegna.ToShortDateString()</td>
                                         <td>@s.NumeroParcel</td>
                                         <td><a href="~/Clienti/Details/@s.NumeroParcel"><i class="fas fa-list"></i></a></td>
-                                        <td><a href="~/Clienti/EditSped/@s.NumeroParcel"><i class="fa-solid fa-wrench"></i></a></td>
+                                        <td><a href="~/Clienti/EditSped/@s.NumeroParcel"><i class="fas fa-edit"></i></a></td>
                                         <td><a href="@Url.Action("DeleteSpedPrivato", "Clienti", new { id = s.NumeroParcel })"><i class="fa-solid fa-trash"></i></a></td>
                                     </tr>
                                 }
@@ -110,7 +115,7 @@
                                     <th>Data Consegna</th>
                                     <th>Numero Parcel</th>
                                     <th>Dettagli</th>
-                                    <th>Modifica</th>
+                                    <th>Aggiorna Stato</th>
                                     <th>Elimina</th>
                                 </tr>
                             </thead>
@@ -127,7 +132,7 @@
                                         <td>@s.dataConsegna.ToShortDateString()</td>
                                         <td>@s.NumeroParcel</td>
                                         <td><a href="~/Clienti/Details/@s.NumeroParcel"><i class="fas fa-list"></i></a></td>
-                                        <td><a href="~/Clienti/EditSped/@s.NumeroParcel"><i class="fa-solid fa-wrench"></i></a></td>
+                                        <td><a href="~/Clienti/EditSped/@s.NumeroParcel"><i class="fas fa-edit"></i></a></td>
                                         <td><a href="@Url.Action("DeleteSpedAzienda", "Clienti", new { id = s.NumeroParcel })"><i class="fa-solid fa-trash"></i></a></td>
                                     </tr>
                                 }

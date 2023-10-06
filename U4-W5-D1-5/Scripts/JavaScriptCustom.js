@@ -15,7 +15,26 @@
     $("#SpedizioneAzienda").click(function () {
         $("#formSpedizioneAzienda").slideToggle();
     })
+    $("#oggi").click(function () {
+        $("#query").empty();
+        $.ajax({
+            method: 'GET',
+            url: "GetToday",
+            success: function (result) {
+                $.each(result.ListaSpedizioniPrivati, function (i, v) {
+                    var licurrent = "<li> Destinazione: " + v.CittaDestinatario + " - Destinatario: " + v.NomeDestinatario + " " + v.CognomeDestinatario + "</li>";
+                    $("#query").append(licurrent);
+                });
+
+                $.each(result.ListaSpedizioniAziende, function (i, v) {
+                    var licurrent = "<li> Destinazione: " + v.CittaDestinatario + " - Destinatario: " + v.NomeDestinatario + " " + v.CognomeDestinatario + "</li>";
+                    $("#query").append(licurrent);
+                })
+            }
+        })
+    })
 })
+
 
 
 

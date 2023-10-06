@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Registri";
+}
+
+<h2 class="text-central p-4">Registri spedizioni</h2>
+
+<div class="d-flex justify-content-evenly">
+    <button class="btn btn-success text-light fw-bold fs-4 px-4" id="oggi">In consegna oggi</button>
+    <button class="btn btn-success text-light fw-bold fs-4 px-4" id="consegna">In attesa di consegna</button>
+    <button class="btn btn-success text-light fw-bold fs-4 px-4" id="destinazione">Divise per destinazione</button>
+</div>
+<ul class="w-75 mx-auto mt-5 p-4" id="query"></ul>
+
+@section scripts{
+    <script src="~/Scripts/JavaScriptCustom.js"></script>
+}

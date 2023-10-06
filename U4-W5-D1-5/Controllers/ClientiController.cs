@@ -289,5 +289,39 @@ namespace U4_W5_D1_5.Controllers
                 return View();
             }
         }
+
+        public ActionResult DeletePrivato(int id)
+        {
+            DB.deletePrivato(id);
+            TempData["Eliminazione"] = "Utente eliminato con successo.";
+            return RedirectToAction("Anagrafica");
+        }
+
+        public ActionResult DeleteAzienda(int id)
+        {
+            DB.deletePrivato(id);
+            TempData["Eliminazione"] = "Utente eliminato con successo.";
+            return RedirectToAction("Anagrafica");
+        }
+
+        public ActionResult Registri()
+        {
+            return View();
+        }
+
+        public ActionResult GetToday()
+        {
+            List<SpedizionePrivato> lista = new List<SpedizionePrivato>();
+            lista = DB.SpedPrivatoOggi(DateTime.Now);
+            List<SpedizioneAzienda> lista1 = new List<SpedizioneAzienda>();
+            lista1 = DB.SpedAziendaOggi(DateTime.Now);
+            var risultato = new
+            {
+                ListaSpedizioniPrivati = lista,
+                ListaSpedizioniAziende = lista1
+            };
+
+            return Json(risultato, JsonRequestBehavior.AllowGet);
+        }
     }
 }

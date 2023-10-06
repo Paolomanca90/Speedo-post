@@ -186,6 +186,7 @@ namespace U4_W5_D1_5.Models
             while (sqlDataReader.Read())
             {
                 SpedizioneAzienda s = new SpedizioneAzienda();
+                s.IdSpedizione = Convert.ToInt32(sqlDataReader["IdSpedizione"]);
                 s.Azienda = sqlDataReader["RagioneSociale"].ToString();
                 s.NomeDestinatario = sqlDataReader["NomeDestinatario"].ToString();
                 s.CognomeDestinatario = sqlDataReader["CognomeDestinatario"].ToString();
@@ -211,6 +212,7 @@ namespace U4_W5_D1_5.Models
             while (sqlDataReader.Read())
             {
                 SpedizionePrivato s = new SpedizionePrivato();
+                s.IdSpedizione = Convert.ToInt32(sqlDataReader["IdSpedizione"]);
                 s.Mittente = $"{sqlDataReader["CognomeCliente"].ToString()}, {sqlDataReader["NomeCliente"].ToString()}";
                 s.NomeDestinatario = sqlDataReader["NomeDestinatario"].ToString();
                 s.CognomeDestinatario = sqlDataReader["CognomeDestinatario"].ToString();
@@ -309,6 +311,78 @@ namespace U4_W5_D1_5.Models
             cmd.Parameters.AddWithValue("CittaAzienda", a.Citta);
             cmd.ExecuteNonQuery();
             conn.Close();
+        }
+
+        public static void deleteAzienda(int id)
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("Delete from Azienda where IdAzienda = @IdAzienda", conn);
+            cmd.Parameters.AddWithValue("IdAzienda", id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public static void deletePrivato(int id)
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("Delete from Privato where IdCliente = @IdCliente", conn);
+            cmd.Parameters.AddWithValue("IdCliente", id);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public static List<SpedizioneAzienda> SpedAziendaOggi(DateTime data)
+        {
+            List<SpedizioneAzienda> lista = new List<SpedizioneAzienda>();
+            SqlCommand cmd = new SqlCommand("select *, RagioneSociale from SpedizioneAzienda Inner Join Azienda on Azienda = PartitaIva where DataConsegna = @DataConsegna", conn);
+            cmd.Parameters.AddWithValue("DataConsegna", data.ToShortDateString());
+            SqlDataReader sqlDataReader;
+            conn.Open();
+            sqlDataReader = cmd.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                SpedizioneAzienda s = new SpedizioneAzienda();
+                s.IdSpedizione = Convert.ToInt32(sqlDataReader["IdSpedizione"]);
+                s.Azienda = sqlDataReader["RagioneSociale"].ToString();
+                s.NomeDestinatario = sqlDataReader["NomeDestinatario"].ToString();
+                s.CognomeDestinatario = sqlDataReader["CognomeDestinatario"].ToString();
+                s.IndirizzoDestinatario = sqlDataReader["IndirizzoDestinatario"].ToString();
+                s.CittaDestinatario = sqlDataReader["CittaDestinatario"].ToString();
+                s.DataSpedizione = Convert.ToDateTime(sqlDataReader["DataSpedizione"]);
+                s.dataConsegna = Convert.ToDateTime(sqlDataReader["DataConsegna"]);
+                s.NumeroParcel = sqlDataReader["NumeroParcel"].ToString();
+                lista.Add(s);
+            }
+            conn.Close();
+            return lista;
+        }
+
+        public static List<SpedizionePrivato> SpedPrivatoOggi(DateTime data)
+        {
+            List<SpedizionePrivato> lista = new List<SpedizionePrivato>();
+            SqlCommand cmd = new SqlCommand("select *, CognomeCliente, NomeCliente  from SpedizionePrivato Inner Join Privato On Mittente = CF where DataConsegna = @DataConsegna", conn);
+            cmd.Parameters.AddWithValue("DataConsegna", data.ToShortDateString());
+            SqlDataReader sqlDataReader;
+            conn.Open();
+            sqlDataReader = cmd.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                SpedizionePrivato s = new SpedizionePrivato();
+                s.IdSpedizione = Convert.ToInt32(sqlDataReader["IdSpedizione"]);
+                s.Mittente = $"{sqlDataReader["CognomeCliente"].ToString()}, {sqlDataReader["NomeCliente"].ToString()}";
+                s.NomeDestinatario = sqlDataReader["NomeDestinatario"].ToString();
+                s.CognomeDestinatario = sqlDataReader["CognomeDestinatario"].ToString();
+                s.IndirizzoDestinatario = sqlDataReader["IndirizzoDestinatario"].ToString();
+                s.CittaDestinatario = sqlDataReader["CittaDestinatario"].ToString();
+                s.DataSpedizione = Convert.ToDateTime(sqlDataReader["DataSpedizione"]);
+                s.dataConsegna = Convert.ToDateTime(sqlDataReader["DataConsegna"]);
+                s.NumeroParcel = sqlDataReader["NumeroParcel"].ToString();
+                lista.Add(s);
+            }
+            conn.Close();
+            return lista;
         }
     }
 }

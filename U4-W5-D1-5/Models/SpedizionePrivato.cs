@@ -8,6 +8,8 @@ namespace U4_W5_D1_5.Models
 {
     public class SpedizionePrivato
     {
+        public int IdSpedizione { get; set; }
+
         [Required(ErrorMessage = "Campo obbligatorio")]
         public string Mittente { get; set; }
 
@@ -47,6 +49,8 @@ namespace U4_W5_D1_5.Models
 
     public class SpedizioneAzienda
     {
+        public int IdSpedizione { get; set; }
+
         [Required(ErrorMessage = "Campo obbligatorio")]
         public string Azienda { get; set; }
 
