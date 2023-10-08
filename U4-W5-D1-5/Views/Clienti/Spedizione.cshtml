@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Spedizione";
+}
+<h2 class="text-center text-success p-4">Ricerca la tua SPEEDizione</h2>
+<div class="min-vh-100 d-flex">
+    <div class="w-50 text-center border border-4 border-success rounded-4 p-4">
+        <div class="pb-3 d-flex justify-content-center align-items-center">
+            <label class="w-25 form-label fw-bold fs-5 me-3">CF / P.Iva</label>
+            <input type="text" id="CF" class="form-control" />
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <label class="w-25 form-label fw-bold fs-5 me-3">Numero parcel</label>
+            <input type="text" id="NumeroParcel" class="form-control" />
+        </div>
+        <div class="text-center mt-3 mb-5">
+            <button class="btn btn-success fw-bold w-50" id="search">Cerca</button>
+        </div>
+        <div id="tracking" style="display:none" >
+            <table class="table table-bordered" id="tableParcel">
+                <thead class="text-bg-success">
+                    <tr>
+                        <th>Data Modifica</th>
+                        <th>Ora Modifica</th>
+                        <th>Luogo Modifica</th>
+                        <th>Stato</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="w-50 ps-3">
+        <img src="~/Content/Img/current.svg" alt="tracking" class="w-100" />
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/JavaScriptCustom.js"></script>
+}

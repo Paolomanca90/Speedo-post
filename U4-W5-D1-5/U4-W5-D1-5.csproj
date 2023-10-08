@@ -152,6 +152,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Img\address.svg" />
+    <Content Include="Content\Img\current.svg" />
     <Content Include="Content\Img\drone.svg" />
     <Content Include="Content\Img\edit.svg" />
     <Content Include="Content\Img\edit1.svg" />
@@ -209,6 +210,7 @@
     <Content Include="Views\Clienti\EditPrivato.cshtml" />
     <Content Include="Views\Clienti\EditAzienda.cshtml" />
     <Content Include="Views\Clienti\Registri.cshtml" />
+    <Content Include="Views\Clienti\Spedizione.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

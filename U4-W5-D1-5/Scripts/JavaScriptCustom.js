@@ -3,6 +3,11 @@
     return parsedDate.toLocaleDateString();
 }
 
+function parseJsonHour(jsonDate) {
+    let parsedDate = new Date(parseInt(jsonDate.substr(6)));
+    return parsedDate.toLocaleTimeString();
+}
+
 $(document).ready(function () {
 
     $("#privato").click(function () {
@@ -59,45 +64,28 @@ $(document).ready(function () {
                 $("#query2 thead").empty();
                 $.each(result, function (i, v) {
                     var row = "<tr><th>" + "Spedizioni in attesa di consegna" + "</th><th>" + v.NumeroSpedizioni + "</th></tr>";
-                    $("#query1 thead").append(row);
+                    $("#query2 thead").append(row);
                 });
             }
         })
     })
+
+    $("#search").click(function () {
+        $("#tracking").slideDown();
+        var cf = $("#CF").val();
+        var numeroParcel = $("#NumeroParcel").val();
+        $.ajax({
+            method: 'POST',
+            url: "GetSpedizione",
+            data: { cf: cf, numeroParcel: numeroParcel },
+            success: function (result) {
+                $("#tableParcel tbody").empty();
+                $.each(result, function (i, v) {
+                    var row = "<tr><td>" + parseJsonDate(v.DataModifica) + "</td><td>" + parseJsonHour(v.DataModifica) + "</td><td>" + v.LuogoModifica + "</td><td>" + v.StatoModifica + "</td></tr>";
+                    $("#tableParcel tbody").append(row);
+                });
+            }
+        });
+    });
+
 })
-
-
-
-
-
-
-
-
-
-//$("#GetClienti").click(function () {
-//    $("#ListaClienti").empty();
-//    $.ajax({
-//        method: 'GET',
-//        url: "GetListaClienti",
-//        success: function (lista) {
-//            $.each(lista, function (i, v) {
-//                var licurrent = "<li>" + v.Nome + " " + v.Cognome + "</li>";
-//                $("#ListaClienti").append(licurrent);
-//            })
-//        }
-//    })
-//})
-
-//$("#btnCerca").click(function () {
-//    var nomeDaRicercare = $("#InizialeNome").val();
-
-//    $.ajax({
-//        method: 'POST',
-//        url: 'GetPersonByNome',
-//        data: { nome: nomeDaRicercare },
-//        success: function (data) {
-//            $(".risultatoRicerca").html("<p class='alert alert-success'>" + data.Nome + ", " + data.Cognome + "</p>")
-//        }
-//    })
-
-//})

@@ -9,7 +9,8 @@ using U4_W5_D1_5.Models;
 
 namespace U4_W5_D1_5.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
+    [Authorize]
     public class ClientiController : Controller
     {
         public List<SelectListItem> AnagraficaPrivato
@@ -44,22 +45,26 @@ namespace U4_W5_D1_5.Controllers
             }
         }
 
+
         // GET: Clienti
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddCliente()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddPrivato()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult AddPrivato(Privato p)
         {
@@ -73,11 +78,13 @@ namespace U4_W5_D1_5.Controllers
             return RedirectToAction("AddCliente");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddAzienda()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult AddAzienda(Azienda a)
         {
@@ -91,17 +98,20 @@ namespace U4_W5_D1_5.Controllers
             return RedirectToAction("AddCliente");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddSpedizione()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddSpedizionePrivato()
         {
             ViewBag.AnagraficaPrivati = AnagraficaPrivato;
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult AddSpedizionePrivato(SpedizionePrivato s)
         {
@@ -115,12 +125,14 @@ namespace U4_W5_D1_5.Controllers
             return RedirectToAction("AddSpedizione");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AddSpedizioneAzienda()
         {
             ViewBag.AnagraficaAziende = AnagraficaAziende;
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult AddSpedizioneAzienda(SpedizioneAzienda s)
         {
@@ -134,6 +146,7 @@ namespace U4_W5_D1_5.Controllers
             return RedirectToAction("AddSpedizione");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult GetSpedizioni()
         {
             List<SpedizionePrivato> lista = new List<SpedizionePrivato>();
@@ -145,6 +158,7 @@ namespace U4_W5_D1_5.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteSpedPrivato(string id)
         {
             DB.deleteSpedPrivato(id);
@@ -152,6 +166,7 @@ namespace U4_W5_D1_5.Controllers
             return RedirectToAction("GetSpedizioni");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteSpedAzienda(string id)
         {
             DB.deleteSpedAzienda(id);
@@ -159,6 +174,7 @@ namespace U4_W5_D1_5.Controllers
             return RedirectToAction("GetSpedizioni");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             List<Dettaglio> lista = new List<Dettaglio>();
@@ -166,11 +182,13 @@ namespace U4_W5_D1_5.Controllers
             return View(lista);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditSped()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditSped(Dettaglio d)
         {
@@ -193,6 +211,7 @@ namespace U4_W5_D1_5.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Anagrafica()
         {
             List<Privato> lista = new List<Privato>();
@@ -204,6 +223,7 @@ namespace U4_W5_D1_5.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditPrivato(int id)
         {
             List<Privato> lista = new List<Privato>();
@@ -220,6 +240,7 @@ namespace U4_W5_D1_5.Controllers
             return View(selected);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditPrivato(Privato p)
         {
@@ -247,6 +268,7 @@ namespace U4_W5_D1_5.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditAzienda(int id)
         {
             List<Azienda> lista = new List<Azienda>();
@@ -263,6 +285,7 @@ namespace U4_W5_D1_5.Controllers
             return View(selected);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditAzienda(Azienda p)
         {
@@ -290,6 +313,7 @@ namespace U4_W5_D1_5.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeletePrivato(int id)
         {
             DB.deletePrivato(id);
@@ -297,6 +321,7 @@ namespace U4_W5_D1_5.Controllers
             return RedirectToAction("Anagrafica");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteAzienda(int id)
         {
             DB.deletePrivato(id);
@@ -304,11 +329,13 @@ namespace U4_W5_D1_5.Controllers
             return RedirectToAction("Anagrafica");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Registri()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult GetToday()
         {
             List<SpedizionePrivato> lista = new List<SpedizionePrivato>();
@@ -324,6 +351,7 @@ namespace U4_W5_D1_5.Controllers
             return Json(risultato, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult GetCitta()
         {
             List<SpedizioniTotali> lista = new List<SpedizioniTotali>();
@@ -334,6 +362,7 @@ namespace U4_W5_D1_5.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult GetConsegna()
         {
             List<SpedizioniTotali> lista = new List<SpedizioniTotali>();
@@ -342,6 +371,20 @@ namespace U4_W5_D1_5.Controllers
             lista1 = DB.GetSpedizioniPrivatoConsegna();
             lista.AddRange(lista1);
             return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Spedizione()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetSpedizione(string cf, string numeroParcel)
+        {
+            List<Dettaglio> lista = DB.GetSpedPrivatoByCfParcel(cf,numeroParcel);
+            List<Dettaglio> lista1 = DB.GetSpedAziendaByCfParcel(cf, numeroParcel);
+            lista.AddRange(lista1);
+            return Json(lista);
         }
     }
 }

@@ -21,18 +21,34 @@
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1 fs-4">
-                        @if (User.Identity.Name != "Admin")
+                        @if (User.Identity.Name != "Admin" && User.Identity.Name != "")
                         {
-                            <li>@Html.ActionLink("Home", "Index", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Traccia Spedizione", "Spedizione", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Home", "Index", "Clienti", new { area = "" }, new { @class = "nav-link fs-5" })</li>
+                            <li>@Html.ActionLink("Traccia Spedizione", "Spedizione", "Clienti", new { area = "" }, new { @class = "nav-link fs-5" })</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Utente", new { area = "" }, new { @class = "nav-link fs-5" })</li>
                         }
                         @if (User.Identity.Name == "Admin")
                         {
-                            <li>@Html.ActionLink("Nuovo Cliente", "AddCliente", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Nuova Spedizione", "AddSpedizione", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Anagrafica", "Anagrafica", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Gestisci Spedizione", "GetSpedizioni", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li>@Html.ActionLink("Registri", "Registri", "Clienti", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item dropdown">
+                                <button class="btn btn-success dropdown-toggle fs-5" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Clienti
+                                </button>
+                                <ul class="dropdown-menu list-group-item-success">
+                                    <li>@Html.ActionLink("Nuovo Cliente", "AddCliente", "Clienti", new { area = "" }, new { @class = "dropdown-item fs-5" })</li>
+                                    <li>@Html.ActionLink("Anagrafica", "Anagrafica", "Clienti", new { area = "" }, new { @class = "dropdown-item fs-5" })</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <button class="btn btn-success dropdown-toggle fs-5" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Spedizioni
+                                </button>
+                                <ul class="dropdown-menu list-group-item-success">
+                                    <li>@Html.ActionLink("Nuova Spedizione", "AddSpedizione", "Clienti", new { area = "" }, new { @class = "dropdown-item fs-5" })</li>
+                                    <li>@Html.ActionLink("Gestisci Spedizione", "GetSpedizioni", "Clienti", new { area = "" }, new { @class = "dropdown-item fs-5" })</li>
+                                    <li>@Html.ActionLink("Registri", "Registri", "Clienti", new { area = "" }, new { @class = "dropdown-item fs-5" })</li>
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Utente", new { area = "" }, new { @class = "nav-link fs-5" })</li>
                         }
                     </ul>
                 </div>
@@ -44,12 +60,13 @@
         @RenderBody()
     </div>
     <footer class="p-4 text-bg-success fw-bold">
-        <p class="m-0 text-center">&copy; @DateTime.Now.Year - Speedo Logistica</p>
+        <p class="m-0 text-center">&copy; @DateTime.Now.Year - SpeedoLogistica s.r.l.</p>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

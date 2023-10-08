@@ -435,7 +435,10 @@ namespace U4_W5_D1_5.Models
             {
                 SpedizioniTotali s = new SpedizioniTotali();
                 s.NumeroSpedizioni = Convert.ToInt32(sqlDataReader["NumeroSpedizioni"]);
-                lista.Add(s);
+                if (s.NumeroSpedizioni > 0)
+                {
+                    lista.Add(s);
+                }
             }
             conn.Close();
             return lista;
@@ -453,6 +456,55 @@ namespace U4_W5_D1_5.Models
             {
                 SpedizioniTotali s = new SpedizioniTotali();
                 s.NumeroSpedizioni = Convert.ToInt32(sqlDataReader["NumeroSpedizioni"]);
+                if (s.NumeroSpedizioni > 0)
+                {
+                    lista.Add(s);
+                }
+            }
+            conn.Close();
+            return lista;
+        }
+
+        public static List<Dettaglio> GetSpedPrivatoByCfParcel(string cf, string numeroParcel)
+        {
+            List<Dettaglio> lista = new List<Dettaglio>();
+            SqlCommand cmd = new SqlCommand("SELECT DataModifica, LuogoModifica, StatoModifica, Dettaglio.NumeroParcel FROM Dettaglio INNER JOIN SpedizionePrivato ON Dettaglio.NumeroParcel = SpedizionePrivato.NumeroParcel WHERE SpedizionePrivato.NumeroParcel = @NumeroParcel AND SpedizionePrivato.Mittente = @CF ORDER BY DataModifica DESC", conn);
+            cmd.Parameters.AddWithValue("NumeroParcel", numeroParcel);
+            cmd.Parameters.AddWithValue("CF", cf);
+            SqlDataReader sqlDataReader;
+            conn.Open();
+            sqlDataReader = cmd.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                Dettaglio s = new Dettaglio();
+                s.DataModifica = Convert.ToDateTime(sqlDataReader["DataModifica"]);
+                s.LuogoModifica = sqlDataReader["LuogoModifica"].ToString();
+                s.StatoModifica = sqlDataReader["StatoModifica"].ToString();
+                s.NumeroParcel = sqlDataReader["NumeroParcel"].ToString();
+                lista.Add(s);
+            }
+            conn.Close();
+            return lista;
+        }
+
+        public static List<Dettaglio> GetSpedAziendaByCfParcel(string cf, string numeroParcel)
+        {
+            List<Dettaglio> lista = new List<Dettaglio>();
+            SqlCommand cmd = new SqlCommand("SELECT DataModifica, LuogoModifica, StatoModifica, Dettaglio.NumeroParcel FROM Dettaglio INNER JOIN SpedizioneAzienda ON Dettaglio.NumeroParcel = SpedizioneAzienda.NumeroParcel WHERE SpedizioneAzienda.NumeroParcel = @NumeroParcel AND SpedizioneAzienda.Azienda = @CF ORDER BY DataModifica DESC", conn);
+            cmd.Parameters.AddWithValue("NumeroParcel", numeroParcel);
+            cmd.Parameters.AddWithValue("CF", cf);
+            SqlDataReader sqlDataReader;
+            conn.Open();
+            sqlDataReader = cmd.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                Dettaglio s = new Dettaglio();
+                s.DataModifica = Convert.ToDateTime(sqlDataReader["DataModifica"]);
+                s.LuogoModifica = sqlDataReader["LuogoModifica"].ToString();
+                s.StatoModifica = sqlDataReader["StatoModifica"].ToString();
+                s.NumeroParcel = sqlDataReader["NumeroParcel"].ToString();
                 lista.Add(s);
             }
             conn.Close();
