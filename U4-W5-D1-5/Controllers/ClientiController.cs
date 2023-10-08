@@ -323,5 +323,25 @@ namespace U4_W5_D1_5.Controllers
 
             return Json(risultato, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetCitta()
+        {
+            List<SpedizioniTotali> lista = new List<SpedizioniTotali>();
+            lista = DB.GetSpedizioniAziendaDestinazione();
+            List<SpedizioniTotali> lista1 = new List<SpedizioniTotali>();
+            lista1 = DB.GetSpedizioniPrivatoDestinazione();
+            lista.AddRange(lista1);
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetConsegna()
+        {
+            List<SpedizioniTotali> lista = new List<SpedizioniTotali>();
+            lista = DB.GetSpedizioniAziendaConsegna();
+            List<SpedizioniTotali> lista1 = new List<SpedizioniTotali>();
+            lista1 = DB.GetSpedizioniPrivatoConsegna();
+            lista.AddRange(lista1);
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
     }
 }

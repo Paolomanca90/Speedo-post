@@ -5,13 +5,107 @@
 
 <h2 class="text-central p-4">Registri spedizioni</h2>
 
-<div class="d-flex justify-content-evenly">
-    <button class="btn btn-success text-light fw-bold fs-4 px-4" id="oggi">In consegna oggi</button>
-    <button class="btn btn-success text-light fw-bold fs-4 px-4" id="consegna">In attesa di consegna</button>
-    <button class="btn btn-success text-light fw-bold fs-4 px-4" id="destinazione">Divise per destinazione</button>
+<div class="min-vh-100">
+    <div class="accordion mb-3" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button fs-5 fw-semibold text-bg-success" id="oggi" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    In consegna oggi
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    @if (1 == 0)
+                    {
+                        <div class="text-center fst-italic p-4 fs-4 text-success">
+                            Nessuna spedizione da mostrare in questa sezione
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-success" id="query">
+                            <thead>
+                                <tr>
+                                    <th>Mittente</th>
+                                    <th>Cognome Dest.</th>
+                                    <th>Nome Dest.</th>
+                                    <th>Indirizzo Dest.</th>
+                                    <th>Città Dest.</th>
+                                    <th>Data Spedizione</th>
+                                    <th>Data Consegna</th>
+                                    <th>Numero Parcel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion mb-3" id="accordionExample1">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button fs-5 fw-semibold text-bg-success" id="destinazione" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                    Divise per destinazione
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample1">
+                <div class="accordion-body">
+                    @if (1 == 0)
+                    {
+                        <div class="text-center fst-italic p-4 fs-4 text-success">
+                            Nessuna spedizione da mostrare in questa sezione
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-success" id="query1">
+                            <thead>
+                                <tr>
+                                    <th>Città Destinazione</th>
+                                    <th>Numero Spedizioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion mb-3" id="accordionExample2">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button fs-5 fw-semibold text-bg-success" id="consegna" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+                    In attesa di consegna
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample2">
+                <div class="accordion-body">
+                    @if (1 == 0)
+                    {
+                        <div class="text-center fst-italic p-4 fs-4 text-success">
+                            Nessuna spedizione da mostrare in questa sezione
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-success" id="query2">
+                            <thead>
+                                <tr>
+                                    <th>Spedizioni in attesa di consegna</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<ul class="w-75 mx-auto mt-5 p-4" id="query"></ul>
-
 @section scripts{
     <script src="~/Scripts/JavaScriptCustom.js"></script>
 }

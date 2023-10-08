@@ -384,5 +384,79 @@ namespace U4_W5_D1_5.Models
             conn.Close();
             return lista;
         }
+
+        public static List<SpedizioniTotali> GetSpedizioniAziendaDestinazione()
+        {
+            List<SpedizioniTotali> lista = new List<SpedizioniTotali>();
+            SqlCommand cmd = new SqlCommand("select count(*) as NumeroSpedizioni, CittaDestinatario from SpedizioneAzienda group by CittaDestinatario", conn);
+            SqlDataReader sqlDataReader;
+            conn.Open();
+            sqlDataReader = cmd.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                SpedizioniTotali s = new SpedizioniTotali();
+                s.CittaDestinatario = sqlDataReader["CittaDestinatario"].ToString();
+                s.NumeroSpedizioni = Convert.ToInt32(sqlDataReader["NumeroSpedizioni"]);
+                lista.Add(s);
+            }
+            conn.Close();
+            return lista;
+        }
+
+        public static List<SpedizioniTotali> GetSpedizioniPrivatoDestinazione()
+        {
+            List<SpedizioniTotali> lista = new List<SpedizioniTotali>();
+            SqlCommand cmd = new SqlCommand("select count(*) as NumeroSpedizioni, CittaDestinatario from SpedizionePrivato group by CittaDestinatario", conn);
+            SqlDataReader sqlDataReader;
+            conn.Open();
+            sqlDataReader = cmd.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                SpedizioniTotali s = new SpedizioniTotali();
+                s.CittaDestinatario = sqlDataReader["CittaDestinatario"].ToString();
+                s.NumeroSpedizioni = Convert.ToInt32(sqlDataReader["NumeroSpedizioni"]);
+                lista.Add(s);
+            }
+            conn.Close();
+            return lista;
+        }
+
+        public static List<SpedizioniTotali> GetSpedizioniAziendaConsegna()
+        {
+            List<SpedizioniTotali> lista = new List<SpedizioniTotali>();
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) AS NumeroSpedizioni FROM SpedizioneAzienda INNER JOIN Dettaglio ON SpedizioneAzienda.NumeroParcel = Dettaglio.NumeroParcel WHERE Dettaglio.StatoModifica = 'In Consegna'", conn);
+            SqlDataReader sqlDataReader;
+            conn.Open();
+            sqlDataReader = cmd.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                SpedizioniTotali s = new SpedizioniTotali();
+                s.NumeroSpedizioni = Convert.ToInt32(sqlDataReader["NumeroSpedizioni"]);
+                lista.Add(s);
+            }
+            conn.Close();
+            return lista;
+        }
+
+        public static List<SpedizioniTotali> GetSpedizioniPrivatoConsegna()
+        {
+            List<SpedizioniTotali> lista = new List<SpedizioniTotali>();
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) AS NumeroSpedizioni FROM SpedizionePrivato INNER JOIN Dettaglio ON SpedizionePrivato.NumeroParcel = Dettaglio.NumeroParcel WHERE Dettaglio.StatoModifica = 'In Consegna'", conn);
+            SqlDataReader sqlDataReader;
+            conn.Open();
+            sqlDataReader = cmd.ExecuteReader();
+
+            while (sqlDataReader.Read())
+            {
+                SpedizioniTotali s = new SpedizioniTotali();
+                s.NumeroSpedizioni = Convert.ToInt32(sqlDataReader["NumeroSpedizioni"]);
+                lista.Add(s);
+            }
+            conn.Close();
+            return lista;
+        }
     }
 }

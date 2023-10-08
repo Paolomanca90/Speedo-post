@@ -87,4 +87,11 @@ namespace U4_W5_D1_5.Models
         public string NumeroParcel { get; set; }
         //public string Stato { get; set; }
     }
+
+    public class SpedizioniTotali
+    {
+        public string CittaDestinatario { get; set; }
+        public int NumeroSpedizioni { get; set; }
+        public string NumeroParcel { get; set; }
+    }
 }
